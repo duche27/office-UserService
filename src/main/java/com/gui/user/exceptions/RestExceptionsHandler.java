@@ -17,25 +17,25 @@ import java.util.Map;
 public class RestExceptionsHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<java.lang.Error> noDepartmentErrorHandler(UserNotFoundException e) {
+    public ResponseEntity<Error> noDepartmentErrorHandler(UserNotFoundException e) {
 
-        java.lang.Error error = new java.lang.Error(e.getMessage());
+        Error error = new Error(e.getMessage());
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     // para manejar excepciones de validaciones de constraints de hibernate
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<java.lang.Error> dataIntegrityViolationHandler(DataIntegrityViolationException e) {
+    public ResponseEntity<Error> dataIntegrityViolationHandler(DataIntegrityViolationException e) {
 
-        java.lang.Error error = new java.lang.Error(e.getMessage());
+        Error error = new Error(e.getMessage());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     // para manejar excepciones de validaciones de hibernate con @Valid
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<java.lang.Error> fieldsValidationExceptions(MethodArgumentNotValidException e) {
+    public ResponseEntity<Error> fieldsValidationExceptions(MethodArgumentNotValidException e) {
 
         Map<String, String> errors = new HashMap<>();
         e.getBindingResult().getAllErrors().forEach((error) -> {
@@ -43,27 +43,27 @@ public class RestExceptionsHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return new ResponseEntity<>(new java.lang.Error(errors.toString()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new Error(errors.toString()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {IllegalStateException.class})
-    public ResponseEntity<java.lang.Error> handleIllegalStateException(IllegalStateException e) {
+    public ResponseEntity<Error> handleIllegalStateException(IllegalStateException e) {
 
-        java.lang.Error error = new java.lang.Error(e.getMessage());
+        Error error = new Error(e.getMessage());
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = {RuntimeException.class})
-    public ResponseEntity<java.lang.Error> handleRuntimeException(RuntimeException e) {
+    public ResponseEntity<Error> handleRuntimeException(RuntimeException e) {
 
-        java.lang.Error error = new java.lang.Error(e.getMessage());
+        Error error = new Error(e.getMessage());
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<java.lang.Error> handleOtherException(Exception e, WebRequest request) {
+    public ResponseEntity<Error> handleOtherException(Exception e, WebRequest request) {
 
-        java.lang.Error error = new java.lang.Error(e.getMessage());
+        Error error = new Error(e.getMessage());
         return new ResponseEntity<>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

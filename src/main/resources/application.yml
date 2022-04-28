@@ -1,21 +1,4 @@
-server:
-  port: 8081
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-  instance:
-    hostname: localhost
-#    instance-id: ${spring.application.name}:${instanceId:${random.value}}
-
 spring:
-
-  application:
-    name: user-service
-
   #   ===============================
   #   H2 - DATA SOURCE
   #   ===============================
